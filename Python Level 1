@@ -1,1 +1,218 @@
+#########################################################################################################
+# LEVEL - 1
+# 1. Write a program in Python to perform the following operation:
+import statistics
+def check_divisibility(number):
+    if number % 3 == 0 and number % 5 == 0:
+        return "Consultadd - Python Training"
+    elif number % 3 == 0:
+        return "Consultadd"
+    elif number % 5 == 0:
+        return "Python Training"
+    else:
+        return "Number is not divisible by 3 or 5"
+
+numbers = [6, 10, 15, 8]
+for num in numbers:
+    result = check_divisibility(num)
+    print("The result is:", result)
+
+
+# 2.  Write a program that accepts a string as input from the user and calculates the number of digits and letters.
+def count(str):
+    num_l = 0
+    num_d = 0
+
+    for char in str:
+        if 'a' <= char <= 'z' or 'A' <= char <= 'Z':
+            num_l += 1
+        elif '0' <= char <= '9':
+            num_d += 1
+    return num_l, num_d
+
+str = input("Enter a string: ")
+letters, digits = count(str)
+print(f"Alphabets: {letters} & Numbers: {digits}")
+
+
+# 3. Write a Python program to input marks for five subjects Physics, Chemistry, Biology, Mathematics, and Computer.
+def cal_grade(percentage):
+    if percentage >= 90:
+        return 'Grade A'
+    elif percentage >= 80:
+        return 'Grade B'
+    elif percentage >= 70:
+        return 'Grade C'
+    elif percentage >= 60:
+        return 'Grade D'
+    elif percentage >= 40:
+        return 'Grade E'
+    else:
+        return 'Grade F'
+
+# Input for all subject
+physics = float(input("Enter Physics marks: "))
+chemistry = float(input("Enter Chemistry marks: "))
+biology = float(input("Enter Biology marks: "))
+mathematics = float(input("Enter Mathematics marks: "))
+computer = float(input("Enter Computer marks: "))
+
+total_marks = physics + chemistry + biology + mathematics + computer
+percentage = (total_marks/500) * 100
+grade = cal_grade(percentage)
+
+# Print the result
+print(f"Percentage is: {percentage:}%")
+print(f"Final Grade is: {grade}")
+
+
+# 4. Write a Python program to find the sum of all odd numbers between two given numbers
+def sum_of_odd_nos(start, stop):
+    count = 0
+    for num in range(start, stop + 1):
+        if num % 2 != 0:
+            count += num
+    return count
+
+start = 1
+stop = 10
+result = sum_of_odd_nos(start, stop)
+print(f"Sum of odd numbers between {start} and {stop}: {result}")
+
+
+# 5. Write a Python program to find the factorial of a number using a for loop.
+def factorial(number):
+    result = 1
+    for i in range(1, number+1):
+        result *= i
+    return result
+
+num = int(input("Enter a number: "))
+fact = factorial(num)
+print(f"The factorial of {num} is: {fact}")
+
+
+# 6. Write a Python program to check if a given number is a perfect number
+def is_perfect_no(number):
+    if number <= 0:
+        return False
+
+    sum = 0
+    for i in range(1, int(number / 2) + 1):
+        if number % i == 0:
+            sum += i
+
+    return sum == number
+
+num = int(input("Enter a number: "))
+if is_perfect_no(num):
+    print("Yes, it's a perfect number.")
+else:
+    print("No, it's not a perfect number.")
+
+# DOUBT TO ASK
+def is_perfect_number(number):
+    if number <= 1:
+        return False
+    
+    divisor_sum = 1
+    for i in range(2, int(number**0.5) + 1):
+        if number % i == 0:
+            divisor_sum += i
+            if i != number // i:
+                divisor_sum += number // i
+
+    return divisor_sum == number
+
+
+# 7. Write a Python program to check if a string is an anagram of another string using dictionary.
+def is_anagram(str_1, str_2):
+    # Base case
+    if len(str_1) != len(str_2):
+        return False
+
+    char_count1 = {}
+    char_count2 = {}
+
+    # Count occurrences of characters for both strings
+    for char in str_1:
+        char_count1[char] = char_count1.get(char, 0) + 1
+    for char in str_2:
+        char_count2[char] = char_count2.get(char, 0) + 1
+
+    # Compare character counts
+    return char_count1 == char_count2
+
+s1 = "listen"
+s2 = "silent"
+print(is_anagram(s1, s2))
+
+
+# 8. Write a Python program to calculate the LCM (Least Common Multiple) of two numbers.
+def calculate_lcm(num1, num2):
+    # Assume lcm would be max no, as I need a smallest common multiple for both the number,
+    # so it should be greater than the largest among them.
+    max_num = max(num1, num2)
+    lcm = max_num
+
+    while True:
+        if lcm % num1 == 0 and lcm % num2 == 0:
+            return lcm
+        lcm += max_num
+
+number1 = 12
+number2 = 18
+lcm = calculate_lcm(number1, number2)
+print(f"LCM of {number1} and {number2} is: {lcm}")
+
+
+# 9. Write a Python program to count the frequency of each element in a list.
+def count_frequency(lst):
+    count_of_freq = {}
+    for num in lst:
+        if num in count_of_freq:
+            count_of_freq[num] += 1
+        else:
+            count_of_freq[num] = 1
+    return count_of_freq
+
+lst = [1, 2, 3, 2, 4, 1, 2, 4, 5]
+frequency_count = count_frequency(lst)
+print("Frequency count:", frequency_count)
+
+
+# 10. Write a Python program to reverse the order of words in a given sentence.
+def reversed_str(str):
+    words = str.split()
+    reversed_words = ' '.join(words[::-1])
+    return reversed_words
+
+Input_sentence = "Hello, World! Welcome to Python programming."
+reversed_sentence = reversed_str(Input_sentence)
+print("Output after reverse =", reversed_sentence)
+
+
+# 11. Write a Python program to calculate the sum of digits of a given number until the sum becomes a single-digit number.
+def sum_of_num(num):
+    while num >= 10:
+        num = (sum(int(digit) for digit in str(num)))
+    return num
+
+num = 383
+digits_sum = sum_of_num(num)
+print(digits_sum)
+
+
+# 12. Write a Python program to reverse a number using a while loop.
+def reverse_no(num):
+    rev_num = 0
+    while num > 0:
+        last_digit = num % 10
+        rev_num = rev_num * 10 + last_digit
+        num = num // 10
+    return rev_num
+
+num = 12345
+rev_no = reverse_no(num)
+(print("Reverse of the Number is:", rev_no))
 
