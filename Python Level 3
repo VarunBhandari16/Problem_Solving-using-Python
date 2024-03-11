@@ -1,0 +1,184 @@
+#########################################################################################################
+# LEVEL - 3
+# 1. Read the doc.txt file using Python File handling concept and return only the even length string from the file.
+def read_even_length_strings(name):
+    with open(name, 'r') as file:
+        words = file.read().split()
+        even_words = [word for word in words if len(word) % 2 == 0 ]
+    return even_words
+
+filename = r"C:\Users\Varun Bhandari\Downloads\Grad_SEM(1)\ConsultAdd\Python_Assignment\Beginner\Level-3\Doc.txt"
+even_length_strings = read_even_length_strings(filename)
+print("Even string in doc.txt:",even_length_strings)
+
+
+# 2. Write a program to count the lines in a file “demo.txt”
+def line_count(name):
+    with open(name, 'r') as file:
+        count = len(file.readlines())
+    return count
+
+file_name = r"C:\Users\Varun Bhandari\Downloads\Grad_SEM(1)\ConsultAdd\Python_Assignment\Beginner\Level-3\demo.txt"
+no_of_lines = line_count(file_name)
+print("Total no of line in demo.txt:",no_of_lines)
+
+
+# 3. Aditi has used text editing software to type some text. After saving the article as words.txt, she realized that she had wrongly typed the alphabet “J" instead of “I" everywhere 
+# in the article. 
+# 2 doubts: first if I put "J" and "I", second if I used readlines() instead of readline()
+def replace_character(name):
+    with open(name, 'r') as file:
+        content = file.readline()
+        updated = content.replace('j', 'i')
+    return updated
+
+name_of_file = r"C:\Users\Varun Bhandari\Downloads\Grad_SEM(1)\ConsultAdd\Python_Assignment\Beginner\Level-3\words.txt"
+result = replace_character(name_of_file)
+print("Update file after replacing characters:", result)
+
+
+# 4. Define a class named Shape and its subclass Square.
+class shape:
+    def __init__(self):
+        pass
+
+    def area(self):
+        return 0
+
+class Square(shape):
+    def __init__(self, length):
+        super().__init__()
+        self.length = length
+
+    def area(self, length):
+        return self.length * self.length
+
+# Object
+square = Square(5)
+print("Area of Square: ", square.area(square))
+
+
+# 5. Create a class 'Time' and initialize it with hours and minutes. Create a method addTime() which should take two Time objects and add them.
+class Time:
+    def __init__(self, hours, minutes):
+        self.hours = hours
+        self.minutes = minutes
+
+    def addTime(self, t1, t2):
+        total_hrs = t1.hours + t2.hours
+        total_mints = t1.minutes + t2.minutes
+
+        total_hrs = total_hrs + (total_mints//60)
+        total_mints = total_mints % 60
+
+        return Time(total_hrs, total_mints)
+
+    def displayTime(self):
+        print(f"Addition of Time: {self.hours} hours and {self.minutes} minutes")
+
+    def displayMinute(self):
+        total_minutes = self.hours * 60 + self.minutes
+        print(f"Total {total_minutes} minutes")
+
+time_1 = Time(2, 50)
+time_2 = Time(1, 20)
+
+result = time_2.addTime(time_1, time_2)
+result.displayTime()
+result.displayMinute()
+
+
+# 6. Write a Python program to check if a number is a power of two using recursion.
+# Single Inheritance
+class Animal:
+    def sound(self):
+        print("Animal makes a sound")
+class Dog(Animal):          # Single Inheritance
+    def bark(self):
+        print("Dog barks")
+
+dog = Dog()
+dog.sound()
+dog.bark()
+
+# Multilevel Inheritance
+class Animal:
+    def sound(self):
+        print("Animal makes a sound")
+class Dog(Animal):          # Multilevel Inheritance
+    def bark(self):
+        print("Dog barks")
+class GermanShepherd(Dog):  # Multilevel Inheritance
+    def guard(self):
+        print("German Shepherd guards")
+
+gs_dog = GermanShepherd()
+gs_dog.sound()
+gs_dog.bark()
+gs_dog.guard()
+
+# Multiple Inheritance
+class Bird:
+    def fly(self):
+        print("Bird flies")
+class Horse:
+    def gallop(self):
+        print("Horse gallops")
+class Pegasus(Bird, Horse):
+    pass
+
+pegasus = Pegasus()
+pegasus.fly()
+pegasus.gallop()
+
+
+# 7. Write a program to construct a dictionary from the two lists containing the names of students and their corresponding subjects
+lst_1 = ['Sam', 'Alice', 'Mona']
+lst_2 = ['Commerce', 'Science', 'Computer']
+dictionary = {key: value for key, value in zip(lst_1, lst_2)}
+print("Using comprehension and for loop:", dictionary)
+
+
+# 8. write a function that accepts an encoded string as a parameter. This string will contain a first name, last name, and an id. Values in the string can be separated by any number of zeros.
+s1 = "000Robert000Smith000123"
+l1 = []
+str_without_zero = s1.split("0")
+l1 = [char for char in str_without_zero if char]
+l2 = ['first_name', 'last_name', 'id']
+final_dict = {key: value for key, value in zip(l2, l1)}
+print(final_dict)
+
+
+# 9. Given an input string, write a function that returns the run length encoded string for the input string.
+strng = "wwwwaaadebbbbbw"
+current_char = strng[0]
+count = 0
+encoded_str = ""
+
+for char in strng:
+    if current_char == char:
+	    count += 1
+    else:
+	    encoded_str += current_char + str(count)
+	    current_char = char
+	    count = 1
+encoded_str += current_char + str(count)
+print(encoded_str)
+
+
+# 10. Write a program to calculate the no of customer you didn't get a computer accesss at cyber cafe.
+def cal_customer_gone(s, n):
+    occupied = set()
+    walked_away = 0
+    for char in s:
+        if char in occupied:
+            occupied.remove(char)
+        else:
+            occupied.add(char)
+            if len(occupied) > N:
+                walked_away += 1
+    return walked_away
+
+N = 1
+S = "ABCBAC"
+print("Total customer waked away without accessing the system:", cal_customer_gone(S, N))
