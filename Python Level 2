@@ -1,0 +1,266 @@
+#########################################################################################################
+# LEVEL - 2
+# 1.  Write a Python program to find the common elements between
+def find_common_elements(l1, l2):
+    final_lst = []
+    for elem in l1:
+        if elem in l2:
+            final_lst.append(elem)
+    return final_lst
+
+l1 = [1, 2, 3, 4, 5]
+l2 = [4, 5, 6, 7, 8]
+
+common_elements = find_common_elements(l1, l2)
+print("Common elements:", common_elements)
+
+# Using dictionary
+l1 = [1, 2, 3, 4, 5]
+l2 = [4, 5, 6, 7, 8]
+new_lst = l1 + l2
+d1 = {}
+for elem in new_lst:
+    if elem in d1:
+        d1[elem] += 1
+    else:
+        d1[elem] = 1
+print(d1)
+
+lst = []  # Initialize lst outside the loop
+for k, v in d1.items():
+    if v > 1:
+        lst.append(k)
+print(lst)
+
+
+# 2. Create a function that takes a list and returns a new list with unique elements of the first list.
+def unique_elem(lst):
+    final_lst = []
+    for elem in lst:
+        if elem not in final_lst:
+            final_lst.append(elem)
+    return final_lst
+
+def unique_elements(input_list):
+    return list(set(input_list))
+
+list1 = [1, 2, 2, 3, 4, 4, 5, 5]
+final_lst_1 = unique_elements(list1)
+final_lst_2 = unique_elem(list1)
+# Print the result
+print("Original list:", list1)
+print("List with unique elements:", final_lst_2)
+print("List with unique elements using set:", final_lst_1)
+
+
+# 3. Given an array of N integers and an integer K, find the number of pairs of elements in the array whose sum is equal to K.
+'''Problem with this CODE for lst = [3,3,3] and k=6
+def count_pairs(arr, k):
+    count = 0
+    seen = set()  # Keep track of seen elements to avoid counting duplicates
+    for elem in arr:
+        second_elem = k - elem
+        if second_elem in seen:
+            count += 1
+        seen.add(elem)
+    return count
+
+# Sample Input
+arr = [1, 2, 3, 4, 5]
+k = 6
+pair_count = count_pairs(arr, k)
+print("Total Pair count:", pair_count)
+'''
+# Right Code
+def count_pairs(arr, k):
+    count = 0
+    track = {}  # Keep track of seen elements and their frequencies
+    for elem in arr:
+        second_elem = k - elem
+        if second_elem in track:
+            count += track[second_elem]
+        track[elem] = track.get(elem, 0) + 1
+    return count
+
+# Sample Input
+arr = [1,2,3,4,5,6]
+k = 6
+pair_count = count_pairs(arr, k)
+print("Total Pair count:", pair_count)
+
+
+# 4. Given an array of size N. The task is to rotate array by D elements towards right
+# Reverse an array element
+def reverse_arr(arr, s, e):
+    while s < e:
+        arr[s], arr[e] = arr[e], arr[s]
+        s = s + 1
+        e = e - 1
+    return arr
+
+def right_rotate_arr(arr, size, D):
+    # Reverse whole array
+    start = 0
+    end = size - 1
+    arr = reverse_arr(arr, start, end)
+
+    # Reverse first subarray till d
+    start = 0
+    end = D - 1
+    arr = reverse_arr(arr, start, end)
+
+    # Reverse the second subarray from d till end
+    if D < size:
+        start = D
+        end = size - 1
+        arr = reverse_arr(arr, start, end)
+    return arr
+
+array = [1, 2, 3, 4, 5]
+D = 3
+size = len(array)
+left_result = right_rotate_arr(array, size, D)
+print("Reversed Array is:", left_result)
+
+# OR Using List Slicing
+arry = [1, 2, 3, 4, 5]
+D = 3
+index = len(arry) - D
+rotated_arr = arry[index:] + arry[:index]
+print("Array after rotation:", rotated_arr)
+
+
+# 5. You are developing a program that analyzes weather data. Write a Python function that takes a list of temperature readings for a specific location and determines the average 
+# temperature, highest temperature, and lowest temperature.
+def analyze_weather_data(temp_lst):
+    # Calculate average temperature
+    avg_temp = sum(temp_lst) / len(temp_lst)
+
+    # Find highest temperature
+    high_temp = max(temp_lst)
+
+    # Find lowest temperature
+    low_temp = min(temp_lst)
+
+    return avg_temp, high_temp, low_temp
+
+# Sample Input
+temp_lst = [25, 28, 21, 24, 27]
+
+# Analyze weather data
+average_temp, highest_temp, lowest_temp = analyze_weather_data(temp_lst)
+print("Average Temperature:", average_temp)
+print("Highest Temperature:", highest_temp)
+print("Lowest Temperature:", lowest_temp)
+
+
+# 6. Write a Python program to check if a number is a power of two using recursion.
+def is_power_of_two(n):
+    if n == 1:
+        return True
+    elif n % 2 == 0 and n != 0:
+        return is_power_of_two(n//2)
+    else:
+        return False
+
+n = 30
+if is_power_of_two(n):
+    print(f"{n} is Power of TWO!!!")
+else:
+    print("Sorry, better luck next time...")
+
+
+# 7. Write a Python function that finds the median of a list of numbers.
+def median_of_list(lst):
+    lst.sort()
+    length = len(lst)
+
+    # Check if the length is odd or even
+    if length % 2 == 0:
+        median = (lst[length // 2 - 1] + lst[length // 2]) / 2 # For odd number
+    else:
+        median = lst[length // 2] # For odd number
+    return median
+
+lst = [7,2,5,1,9,3]
+median = median_of_list(lst)
+print("Median is:", median)
+
+# OR Using statistics library
+print(f"Median using built-in library:", statistics.median([7,2,5,1,9,3]))
+
+
+# 8. Write a Python function that counts the number of vowels in a given string.
+def count_vowels(string):
+    vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+    vowel_count = 0
+    for s in string:
+        if s in vowels:
+            vowel_count += 1
+    return vowel_count
+
+string = "Hello, World!"
+print("Total vowels are:",count_vowels(string))
+
+
+# 9. Write a Python program that executes an operation on a list and handles an IndexError exception if the index is out of range.
+def perform_operation_on_list(lst, index):
+    try:
+        print(f"Element at {index}th index is {lst[index]}")
+    except IndexError:
+        # Handle the IndexError exception
+        print("Index is out of range. Please provide a valid index.")
+
+my_list = [1, 2, 3, 4, 5]
+index = 10
+perform_operation_on_list(my_list, index)
+
+
+# 10. We are making n stone piles! The first pile has n stones. If n is even, then all piles have an even number of stones. If n is odd, all piles have an odd number of stones. 
+# Each pile must have more stones than the previous pile but as few as possible. Write a Python program to find the number of stones in each pile
+def stone_piles(n):
+    piles = []
+    stones = n
+    for _ in range(n):
+        piles.append(stones)
+        stones += 2
+    return piles
+
+n = 6
+output = stone_piles(n)
+print("The no of stones in each pile:",output)
+
+
+# 11.Write a Python program to create a list of given strings individually of the list using the Python map function.
+input_strings = ['Red', 'Blue', 'Black', 'White', 'Pink']
+output_list = list(map(list, input_strings))
+print("Output:", output_list)
+
+
+# 12.  Create a login page backend to ask users to enter the username
+# and password. Make sure to ask for a Re-Type Password and if the
+# password is incorrect give a chance to enter it again but it should
+# not be more than 3 times.
+def login_page():
+    username = input("Enter Username: ")
+    password = input("Enter Password: ")
+
+    count = 0
+    while count < 3:
+        retype_pwd = input("Re-Type Password: ")
+        if retype_pwd != password:
+            print("Password incorrect. Please try again.")
+            count += 1
+        else:
+            print("Login Successful")
+            return
+
+login_page()
+
+
+# 13. Write a Python program to find if a given string starts with a given character using Lambda.
+string = "Hello, World!"
+char = "H"
+check_first_char = lambda string, char : True if string[0] == char else False
+print(check_first_char(string, char))
+
